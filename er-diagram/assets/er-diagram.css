@@ -1,0 +1,141 @@
+/* er-diagram skill: styles and theme tokens. Every token is prefixed --erd- so the diagram can sit inside any page.
+   Light values on :root; dark values under prefers-color-scheme (unless data-theme="light") and under data-theme="dark". */
+:root {
+  --erd-bg: #f5f6f9; --erd-surface: #ffffff; --erd-fg: #172033; --erd-muted: #586174; --erd-line: #dde2ea;
+  --erd-accent: #2747b0; --erd-accent-soft: #e5eafa;
+  --erd-wire: #66708a; --erd-stroke: #c3cad6;
+  --erd-k-core-bg: #d9e2fb; --erd-k-core-fg: #1c3486;
+  --erd-k-dep-bg: #d3efe8; --erd-k-dep-fg: #0b5b51;
+  --erd-k-link-bg: #fbe6c2; --erd-k-link-fg: #734600;
+  --erd-k-ref-bg: #e8dcf7; --erd-k-ref-fg: #56278a;
+  --erd-k-log-bg: #e2e6ed; --erd-k-log-fg: #384255;
+  --erd-ic-pk: #c28a00; --erd-ic-fk: #2c6bd1; --erd-ic-uk: #7440bf; --erd-ic-ix: #0b7c72; --erd-ic-der: #b86400; --erd-ic-col: #8a93a5;
+  --erd-grp-bg: #ebeff6; --erd-grp-stroke: #cbd3e0;
+  --erd-font-display: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --erd-font-body: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --erd-font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --erd-bg: #0e131c; --erd-surface: #151c28; --erd-fg: #e5e9f1; --erd-muted: #9ba4b6; --erd-line: #263042;
+    --erd-accent: #93abff; --erd-accent-soft: #1c2645;
+    --erd-wire: #8b95ab; --erd-stroke: #364257;
+    --erd-k-core-bg: #24345f; --erd-k-core-fg: #cbd8ff;
+    --erd-k-dep-bg: #143f39; --erd-k-dep-fg: #a2e8da;
+    --erd-k-link-bg: #463210; --erd-k-link-fg: #f4d394;
+    --erd-k-ref-bg: #37264f; --erd-k-ref-fg: #dcc6fb;
+    --erd-k-log-bg: #283142; --erd-k-log-fg: #c6cddb;
+    --erd-ic-pk: #f0c15c; --erd-ic-fk: #7fb0ff; --erd-ic-uk: #c4a3f6; --erd-ic-ix: #4fd2c4; --erd-ic-der: #f2a65e; --erd-ic-col: #7d879b;
+    --erd-grp-bg: #131b28; --erd-grp-stroke: #2c374b;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --erd-bg: #0e131c; --erd-surface: #151c28; --erd-fg: #e5e9f1; --erd-muted: #9ba4b6; --erd-line: #263042;
+  --erd-accent: #93abff; --erd-accent-soft: #1c2645;
+  --erd-wire: #8b95ab; --erd-stroke: #364257;
+  --erd-k-core-bg: #24345f; --erd-k-core-fg: #cbd8ff;
+  --erd-k-dep-bg: #143f39; --erd-k-dep-fg: #a2e8da;
+  --erd-k-link-bg: #463210; --erd-k-link-fg: #f4d394;
+  --erd-k-ref-bg: #37264f; --erd-k-ref-fg: #dcc6fb;
+  --erd-k-log-bg: #283142; --erd-k-log-fg: #c6cddb;
+  --erd-ic-pk: #f0c15c; --erd-ic-fk: #7fb0ff; --erd-ic-uk: #c4a3f6; --erd-ic-ix: #4fd2c4; --erd-ic-der: #f2a65e; --erd-ic-col: #7d879b;
+  --erd-grp-bg: #131b28; --erd-grp-stroke: #2c374b;
+  color-scheme: dark;
+}
+
+/* ---- toolbar, legend, canvas ---- */
+.erd-section { display: grid; gap: 14px; min-width: 0; color: var(--erd-fg); font-family: var(--erd-font-body); }
+.erd-figure { margin: 0; display: grid; gap: 10px; min-width: 0; }
+.erd-figure figcaption { font-size: 0.875rem; color: var(--erd-muted); max-width: 78ch; }
+.erd-toolbar { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; justify-content: space-between; }
+.erd-zoom, .erd-jump { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.erd-label { font-size: 0.8125rem; color: var(--erd-muted); }
+.erd-btn { font: inherit; font-size: 0.8125rem; font-weight: 500; border: 1px solid var(--erd-line); background: var(--erd-surface); color: var(--erd-fg); border-radius: 8px; padding: 4px 10px; min-width: 32px; cursor: pointer; }
+.erd-btn:hover { border-color: var(--erd-accent); color: var(--erd-accent); }
+.erd-btn:focus-visible, .erd-find:focus-visible, .erd-canvas:focus-visible { outline: 2px solid var(--erd-accent); outline-offset: 2px; }
+.erd-scale { font-family: var(--erd-font-mono); font-size: 0.8125rem; color: var(--erd-muted); min-width: 4.5ch; text-align: center; font-variant-numeric: tabular-nums; }
+.erd-find { font: inherit; font-size: 0.8125rem; border: 1px solid var(--erd-line); background: var(--erd-surface); color: var(--erd-fg); border-radius: 8px; padding: 4px 8px; max-width: 100%; }
+.erd-canvas { position: relative; height: min(78vh, 880px); min-height: 420px; overflow: hidden; background: var(--erd-bg); border: 1px solid var(--erd-line); border-radius: 12px; cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; }
+.erd-canvas.dragging { cursor: grabbing; }
+.erd-canvas > svg { display: block; width: 100%; height: 100%; }
+.erd-status { position: absolute; left: 12px; bottom: 10px; font-size: 0.8125rem; color: var(--erd-muted); pointer-events: none; }
+.erd-figure:fullscreen { background: var(--erd-bg); padding: 16px; display: grid; grid-template-rows: auto auto 1fr auto; }
+.erd-figure:fullscreen .erd-canvas { height: auto; }
+
+.er-legend { display: grid; gap: 10px; }
+.er-lgroup { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; font-size: 0.8125rem; color: var(--erd-muted); }
+.er-lhead { font-weight: 600; color: var(--erd-fg); min-width: 7.5em; }
+.er-li { display: inline-flex; align-items: center; gap: 6px; }
+.er-lsvg { display: block; flex: none; }
+.er-swatch { fill: var(--kh); stroke: var(--erd-stroke); stroke-width: 1; }
+.er-edge { fill: var(--erd-stroke); }
+
+/* ---- groups and tables ---- */
+.er-group-box { fill: var(--erd-grp-bg); stroke: var(--erd-grp-stroke); stroke-width: 1.2; }
+.er-group-title { font-family: var(--erd-font-display); font-weight: 750; font-size: 24px; fill: var(--erd-fg); }
+.er-group-note { font-family: var(--erd-font-body); font-size: 14px; fill: var(--erd-muted); }
+.er-group-count { font-family: var(--erd-font-mono); font-size: 12px; fill: var(--erd-muted); }
+.er-fill { fill: var(--erd-surface); }
+.er-outline { fill: none; stroke: var(--erd-stroke); stroke-width: 1; }
+.er-flash .er-outline { stroke: var(--erd-accent); stroke-width: 3; }
+.er-head { fill: var(--kh); }
+.er-hd { cursor: help; }
+.er-sep { stroke: var(--erd-stroke); stroke-width: 1; }
+.er-name { font-family: var(--erd-font-body); font-weight: 600; font-size: 12.5px; fill: var(--kt); }
+.er-badge { font-family: var(--erd-font-mono); font-size: 8.5px; letter-spacing: 0.06em; fill: var(--kt); opacity: 0.85; }
+.er-field { font-family: var(--erd-font-mono); font-size: 11px; fill: var(--erd-fg); }
+.er-field.pk { font-weight: 600; }
+.er-field.derived { font-style: italic; }
+.er-type { font-family: var(--erd-font-mono); font-size: 10px; fill: var(--erd-muted); }
+.er-tag { fill: var(--erd-accent-soft); }
+.er-tagt { font-family: var(--erd-font-mono); font-size: 8.5px; font-weight: 500; fill: var(--erd-accent); }
+.er-rowbg { fill: transparent; }
+.er-row:hover .er-rowbg { fill: var(--erd-accent-soft); }
+.k-core { --kh: var(--erd-k-core-bg); --kt: var(--erd-k-core-fg); }
+.k-dep { --kh: var(--erd-k-dep-bg); --kt: var(--erd-k-dep-fg); }
+.k-link { --kh: var(--erd-k-link-bg); --kt: var(--erd-k-link-fg); }
+.k-ref { --kh: var(--erd-k-ref-bg); --kt: var(--erd-k-ref-fg); }
+.k-log { --kh: var(--erd-k-log-bg); --kt: var(--erd-k-log-fg); }
+
+/* ---- field icons ---- */
+.ic-pk circle { fill: var(--erd-ic-pk); }
+.ic-fk circle { fill: var(--erd-ic-fk); }
+.ic-pk .hole, .ic-fk .hole { fill: var(--erd-surface); }
+.shaft { fill: none; stroke-width: 1.7; stroke-linecap: round; }
+.ic-pk .shaft { stroke: var(--erd-ic-pk); }
+.ic-fk .shaft { stroke: var(--erd-ic-fk); }
+.ic-fkdot { fill: var(--erd-ic-fk); stroke: var(--erd-surface); stroke-width: 1; }
+.ic-uk { fill: var(--erd-ic-uk); }
+.ic-ukt { font-family: var(--erd-font-body); font-size: 8px; font-weight: 700; fill: var(--erd-surface); }
+.ic-der { fill: var(--erd-ic-der); }
+.ic-ix rect { fill: var(--erd-ic-ix); }
+.ic-col { fill: none; stroke: var(--erd-ic-col); stroke-width: 1.1; }
+
+/* ---- relationship lines; strokes keep their screen width at any zoom ---- */
+.er-path { fill: none; stroke: var(--erd-wire); stroke-width: 1.2; }
+.nonid .er-path { stroke-dasharray: 5 3; }
+.er-hit { fill: none; stroke: transparent; stroke-width: 9; }
+.er-glyph { fill: none; stroke: var(--erd-wire); stroke-width: 1.2; }
+.er-circ { fill: var(--erd-surface); stroke: var(--erd-wire); stroke-width: 1.2; }
+.er-rel:hover .er-path, .er-rel:hover .er-glyph, .er-rel:hover .er-circ { stroke: var(--erd-accent); stroke-width: 2; }
+.erd-canvas .er-path, .erd-canvas .er-hit, .erd-canvas .er-glyph, .erd-canvas .er-circ, .erd-canvas .er-outline, .erd-canvas .er-sep, .erd-canvas .er-group-box { vector-effect: non-scaling-stroke; }
+
+/* ---- hover cards ---- */
+.er-tip { position: absolute; z-index: 6; width: max-content; max-width: min(380px, calc(100% - 24px)); background: var(--erd-surface); color: var(--erd-fg); border: 1px solid var(--erd-stroke); border-radius: 10px; box-shadow: 0 10px 28px rgba(10, 20, 40, 0.2); padding: 10px 12px; font-family: var(--erd-font-body); font-size: 0.8125rem; line-height: 1.45; pointer-events: none; display: grid; gap: 6px; }
+.er-tip[hidden] { display: none; }
+.tip-alt { font-family: var(--erd-font-display); font-weight: 700; font-size: 1.125rem; font-stretch: 104%; line-height: 1.2; }
+.tip-head { display: flex; flex-wrap: wrap; gap: 2px 10px; align-items: baseline; }
+.tip-name { font-weight: 600; }
+.tip-name.mono { font-family: var(--erd-font-mono); font-size: 0.8125rem; word-break: break-all; }
+.tip-type, .tip-kind { font-family: var(--erd-font-mono); font-size: 0.75rem; color: var(--erd-muted); }
+.tip-chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.tip-chip { font-size: 0.6875rem; font-weight: 600; border-radius: 999px; padding: 1px 8px; background: var(--erd-bg); color: var(--erd-muted); border: 1px solid var(--erd-line); }
+.tip-chip.pk { color: var(--erd-ic-pk); }
+.tip-chip.fk { color: var(--erd-ic-fk); }
+.tip-chip.ph { color: var(--erd-accent); background: var(--erd-accent-soft); border-color: transparent; }
+.tip-desc { margin: 0; }
+.tip-code { font-size: 0.75rem; color: var(--erd-muted); border-left: 2px solid var(--erd-line); padding-left: 8px; }
+.tip-code code { font-family: var(--erd-font-mono); font-size: 0.6875rem; }
+.tip-meta { font-size: 0.75rem; color: var(--erd-muted); }
+.kind-sw { display: inline-block; width: 12px; height: 10px; border-radius: 2px; background: var(--kh); border: 1px solid var(--erd-stroke); margin-right: 6px; vertical-align: -1px; }

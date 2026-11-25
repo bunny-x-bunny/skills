@@ -1,0 +1,53 @@
+<title>@@TITLE@@</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* @@ERD_CSS@@ */
+
+/* Page shell: one reading column, the diagram fills its width. */
+body {
+  margin: 0; background: var(--erd-bg); color: var(--erd-fg); font-family: var(--erd-font-body); font-size: 15px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 32px 48px;
+}
+.erd-page { max-width: 1320px; margin: 0 auto; display: grid; gap: 18px; }
+.erd-page h1 { margin: 0; font-family: var(--erd-font-display); font-weight: 800; font-stretch: 112%; font-size: clamp(1.75rem, 1.2rem + 2vw, 2.5rem); line-height: 1.15; text-wrap: balance; }
+.erd-lead { margin: 0; max-width: 72ch; color: var(--erd-muted); }
+.erd-lead:empty { display: none; }
+</style>
+<main class="erd-page">
+  <header>
+    <h1>@@TITLE@@</h1>
+    <p class="erd-lead">@@INTRO@@</p>
+  </header>
+  <section class="erd-section" data-erd="root">
+    <div class="er-legend" data-erd="legend" aria-label="Diagram legend"></div>
+    <figure class="erd-figure" data-erd="figure">
+      <div class="erd-toolbar">
+        <div class="erd-zoom" role="group" aria-label="Zoom">
+          <button class="erd-btn" type="button" data-z="out" aria-label="Zoom out">−</button>
+          <span class="erd-scale" data-erd="scale" aria-live="polite">100%</span>
+          <button class="erd-btn" type="button" data-z="in" aria-label="Zoom in">+</button>
+          <button class="erd-btn" type="button" data-z="fit">Fit</button>
+          <button class="erd-btn" type="button" data-z="one">Actual size</button>
+          <button class="erd-btn" type="button" data-z="full">Full screen</button>
+        </div>
+        <div class="erd-zoom">
+          <label class="erd-label" for="erd-find">Find table</label>
+          <select class="erd-find" id="erd-find" data-erd="find"><option value="">Choose a table…</option></select>
+        </div>
+      </div>
+      <div class="erd-jump" data-erd="jump" role="group" aria-label="Zoom to a module"></div>
+      <div class="erd-canvas" data-erd="canvas" tabindex="0"></div>
+      <figcaption>Drag to move around. Pinch, or hold Ctrl (⌘ on a Mac) and scroll, to zoom; double-click zooms in; with the diagram focused, +, − and 0 zoom and the arrow keys pan. Point at a table name, a field or a line for details.</figcaption>
+    </figure>
+  </section>
+</main>
+<script>
+/* @@ERD_ENGINE@@ */
+</script>
+<script>
+/* @@ERD_MODEL@@ */
+ERDiagram.render(document.querySelector('[data-erd="root"]'), MODEL);
+</script>
