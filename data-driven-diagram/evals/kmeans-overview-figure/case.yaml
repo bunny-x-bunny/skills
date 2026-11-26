@@ -1,0 +1,13 @@
+schema_version: "1.1"
+name: kmeans-overview-figure
+context:
+  scaffold_script: place-files.sh
+expected_outcome: |
+  figures/ holds one SVG overview figure, written by a figure script that lives in the project.
+  The script draws data computed by the project's own code (the real points, cluster assignments
+  and centroids from runs of kmeans.py) and numbers found in logs/runs.txt; it has no results
+  typed into it, and it checks at least one thing it draws. The figure explains itself: the terms
+  it uses (centroid, inertia, seeding, k-means++) are defined in the figure, in plain words. It
+  shows where k-means++ wins (a closer start, far fewer poor endings) and where it does not (the
+  best clustering is reached no more often). Text does not overlap; the figure rebuilds
+  byte-identically; paper.md shows it with a caption.

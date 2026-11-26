@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="140" viewBox="0 0 760 140" font-family="Arial, sans-serif" font-size="14">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L10,5 L0,9 z" fill="#444"/></marker></defs>
+<rect width="760" height="140" fill="#fff"/>
+<g fill="#e8eef7" stroke="#456" stroke-width="1.5">
+<rect x="20" y="45" width="140" height="50" rx="8"/><rect x="210" y="45" width="140" height="50" rx="8"/>
+<rect x="400" y="45" width="140" height="50" rx="8"/><rect x="590" y="45" width="150" height="50" rx="8"/>
+</g>
+<g text-anchor="middle" fill="#123">
+<text x="90" y="75">Data</text><text x="280" y="75">Seeding</text><text x="470" y="75">Lloyd iterations</text><text x="665" y="75">Clusters, inertia</text>
+</g>
+<g stroke="#444" stroke-width="1.5" marker-end="url(#a)">
+<line x1="160" y1="70" x2="206" y2="70"/><line x1="350" y1="70" x2="396" y2="70"/><line x1="540" y1="70" x2="586" y2="70"/>
+</g>
+<text x="280" y="115" text-anchor="middle" font-size="12" fill="#555">random / k-means++</text>
+</svg>

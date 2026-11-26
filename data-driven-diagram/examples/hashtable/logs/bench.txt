@@ -1,0 +1,5 @@
+# harness.py bench: 32768 slots, median of 5 runs; Python 3.13.2, Windows AMD64
+load 0.50 linear     hit    510.7 ns   miss    889.4 ns   insert    721.0 ns
+load 0.50 robinhood  hit    689.3 ns   miss   1035.0 ns   insert    943.0 ns
+load 0.90 linear     hit   1766.6 ns   miss  16153.8 ns   insert   2140.3 ns
+load 0.90 robinhood  hit   3419.3 ns   miss   4039.0 ns   insert   3848.8 ns

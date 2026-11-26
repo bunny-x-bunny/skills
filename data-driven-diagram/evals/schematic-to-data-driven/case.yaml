@@ -1,0 +1,9 @@
+schema_version: "1.1"
+name: schematic-to-data-driven
+context:
+  scaffold_script: place-files.sh
+expected_outcome: |
+  figures/overview.svg is no longer the schematic of four boxes: it is rebuilt by a figure script
+  in the project from data that kmeans.py computes and numbers found in logs/runs.txt. It shows
+  the real points and how the centroids move over the iterations of at least one real run, and
+  it defines its own terms. Text does not overlap, and the figure rebuilds byte-identically.

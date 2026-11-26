@@ -1,0 +1,402 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="1162" viewBox="0 0 1200 1162" font-family="Arial, Helvetica, 'Liberation Sans', sans-serif">
+<title>Robin Hood hashing against linear probing: the tables slot by slot, probes per lookup against load, and the ratios</title>
+<defs>
+<marker id="ah-1a1a1a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0.8 L10,5 L0,9.2 z" fill="#1a1a1a"/></marker>
+<marker id="ah-555555" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0.8 L10,5 L0,9.2 z" fill="#555555"/></marker>
+</defs>
+<rect width="1200" height="1162" fill="#ffffff"/>
+<text x="20.0" y="34.0" font-size="26" fill="#1a1a1a" font-weight="bold">Robin Hood hashing</text>
+<text x="290.2" y="34.0" font-size="14" fill="#1a1a1a">the same average walk to a key, a far shorter worst one</text>
+<text x="1180.0" y="34.0" font-size="11" fill="#555555" text-anchor="end">Every picture and number is computed by <tspan font-family="'DejaVu Sans Mono', Menlo, Consolas, 'Liberation Mono', 'Courier New', monospace" font-size="10.2">harness.py</tspan> or read from its log.</text>
+<text x="20.0" y="53.0" font-size="11" fill="#555555">How a hash table with open addressing finds a key, and the words used below; the number on a card is the panel that shows it.</text>
+<rect x="20.00" y="64.00" width="214.40" height="85.80" fill="#f3f3f3" rx="6"/>
+<circle cx="38.00" cy="79.00" r="8.5" fill="#1a1a1a"/>
+<text x="38.0" y="82.8" font-size="11" fill="#ffffff" font-weight="bold" text-anchor="middle">1</text>
+<text x="52.0" y="83.3" font-size="12.5" fill="#1a1a1a" font-weight="bold">A key has a home slot</text>
+<rect x="189.40" y="75.50" width="6.00" height="7.00" fill="#d2d2d2"/>
+<rect x="196.40" y="75.50" width="6.00" height="7.00" fill="#0072B2"/>
+<rect x="203.40" y="75.50" width="6.00" height="7.00" fill="#d2d2d2"/>
+<rect x="210.40" y="75.50" width="6.00" height="7.00" fill="#d2d2d2"/>
+<rect x="217.40" y="75.50" width="6.00" height="7.00" fill="#d2d2d2"/>
+<text x="30.0" y="102.0" font-size="10.5" fill="#555555">The table is a row of <tspan font-weight="bold" fill="#1a1a1a">slots</tspan>. A hash of the</text>
+<text x="30.0" y="115.2" font-size="10.5" fill="#555555">key names one of them, its <tspan font-weight="bold" fill="#1a1a1a">home slot</tspan>:</text>
+<text x="30.0" y="128.4" font-size="10.5" fill="#555555">the place to look first.</text>
+<rect x="256.40" y="64.00" width="214.40" height="85.80" fill="#f3f3f3" rx="6"/>
+<circle cx="274.40" cy="79.00" r="8.5" fill="#1a1a1a"/>
+<text x="274.4" y="82.8" font-size="11" fill="#ffffff" font-weight="bold" text-anchor="middle">1</text>
+<text x="288.4" y="83.3" font-size="12.5" fill="#1a1a1a" font-weight="bold">Taken? On to the next</text>
+<rect x="425.80" y="78.50" width="6.00" height="7.00" fill="#d2d2d2"/>
+<rect x="432.80" y="78.50" width="6.00" height="7.00" fill="#8f8f8f"/>
+<rect x="439.80" y="78.50" width="6.00" height="7.00" fill="#8f8f8f"/>
+<rect x="446.80" y="78.50" width="6.00" height="7.00" fill="#0072B2"/>
+<rect x="453.80" y="78.50" width="6.00" height="7.00" fill="#d2d2d2"/>
+<path d="M435.8,77.0q3.5,-7 7,0q3.5,-7 7,0" fill="none" stroke="#1a1a1a" stroke-width="0.9"/>
+<text x="266.4" y="102.0" font-size="10.5" fill="#555555">If that slot is taken, the key goes into the</text>
+<text x="266.4" y="115.2" font-size="10.5" fill="#555555">next free one: <tspan font-weight="bold" fill="#1a1a1a">linear probing</tspan>. How far</text>
+<text x="266.4" y="128.4" font-size="10.5" fill="#555555">from home it ends up is its</text>
+<text x="266.4" y="141.6" font-size="10.5" fill="#555555"><tspan font-weight="bold" fill="#1a1a1a">displacement</tspan>.</text>
+<rect x="492.80" y="64.00" width="214.40" height="85.80" fill="#f3f3f3" rx="6"/>
+<circle cx="510.80" cy="79.00" r="8.5" fill="#1a1a1a"/>
+<text x="510.8" y="82.8" font-size="11" fill="#ffffff" font-weight="bold" text-anchor="middle">2</text>
+<text x="524.8" y="83.3" font-size="12.5" fill="#1a1a1a" font-weight="bold">Looking a key up</text>
+<rect x="657.20" y="75.50" width="6.00" height="7.00" fill="#8f8f8f"/>
+<rect x="664.20" y="75.50" width="6.00" height="7.00" fill="#8f8f8f"/>
+<rect x="671.20" y="75.50" width="6.00" height="7.00" fill="#8f8f8f"/>
+<rect x="678.20" y="75.50" width="6.00" height="7.00" fill="#ffffff"/>
+<rect x="678.20" y="75.50" width="6.00" height="7.00" fill="none" stroke="#8f8f8f" stroke-width="0.8"/>
+<path d="M688.2,79.2l2.6,2.8l4.6,-5.6" fill="none" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="502.8" y="102.0" font-size="10.5" fill="#555555">A lookup walks the same way. Every slot</text>
+<text x="502.8" y="115.2" font-size="10.5" fill="#555555">it looks at is a <tspan font-weight="bold" fill="#1a1a1a">probe</tspan>. A key that is there</text>
+<text x="502.8" y="128.4" font-size="10.5" fill="#555555">is a <tspan font-weight="bold" fill="#1a1a1a">hit</tspan>; one that is not, a <tspan font-weight="bold" fill="#1a1a1a">miss</tspan>, shows</text>
+<text x="502.8" y="141.6" font-size="10.5" fill="#555555">only at an empty slot.</text>
+<rect x="729.20" y="64.00" width="214.40" height="85.80" fill="#ffffff" stroke="#555555" stroke-width="1" rx="6" stroke-dasharray="3 2"/>
+<circle cx="747.20" cy="79.00" r="8.5" fill="#1a1a1a"/>
+<text x="747.2" y="82.8" font-size="11" fill="#ffffff" font-weight="bold" text-anchor="middle">3</text>
+<text x="761.2" y="83.3" font-size="12.5" fill="#1a1a1a" font-weight="bold">Robin Hood's rule</text>
+<rect x="903.60" y="75.50" width="8.00" height="7.00" fill="#D55E00"/>
+<rect x="924.60" y="75.50" width="8.00" height="7.00" fill="#8f8f8f"/>
+<path d="M911.6,74.0q7,-6 13,0" fill="none" stroke="#1a1a1a" stroke-width="0.9" marker-end="url(#ah-1a1a1a)"/>
+<path d="M924.6,84.0q-7,6 -13,0" fill="none" stroke="#1a1a1a" stroke-width="0.9" marker-end="url(#ah-1a1a1a)"/>
+<text x="739.2" y="102.0" font-size="10.5" fill="#555555"><tspan font-weight="bold" font-style="italic" fill="#D55E00">Robin Hood</tspan> changes one thing: when</text>
+<text x="739.2" y="115.2" font-size="10.5" fill="#555555">two keys want a slot, the one further from</text>
+<text x="739.2" y="128.4" font-size="10.5" fill="#555555">home gets it and the other moves on.</text>
+<line x1="238.40" y1="106.90" x2="252.40" y2="106.90" stroke="#555555" stroke-width="1.3" marker-end="url(#ah-555555)"/>
+<line x1="474.80" y1="106.90" x2="488.80" y2="106.90" stroke="#555555" stroke-width="1.3" marker-end="url(#ah-555555)"/>
+<text x="975.6" y="83.3" font-size="12.5" fill="#1a1a1a" font-weight="bold">Where each number comes from</text>
+<circle cx="980.20" cy="98.40" r="4" fill="#1a1a1a"/>
+<text x="990.6" y="102.0" font-size="10.5" fill="#555555">counted by <tspan font-family="'DejaVu Sans Mono', Menlo, Consolas, 'Liberation Mono', 'Courier New', monospace" font-size="9.8">harness.py</tspan>: exact, the</text>
+<text x="990.6" y="115.2" font-size="10.5" fill="#555555">same on every run</text>
+<path d="M975.6,124.8L980.2,120.2L984.8,124.8L980.2,129.4Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="990.6" y="128.4" font-size="10.5" fill="#555555">timed once, on one machine:</text>
+<text x="990.6" y="141.6" font-size="10.5" fill="#555555"><tspan font-family="'DejaVu Sans Mono', Menlo, Consolas, 'Liberation Mono', 'Courier New', monospace" font-size="9.8">logs/bench.txt</tspan></text>
+<circle cx="980.20" cy="151.20" r="3.7" fill="#ffffff" stroke="#555555" stroke-width="1.2" stroke-dasharray="2 1.6"/>
+<text x="990.6" y="154.8" font-size="10.5" fill="#555555">a formula, not an observation</text>
+<line x1="20.00" y1="167.80" x2="1180.00" y2="167.80" stroke="#d6d6d6" stroke-width="1"/>
+<circle cx="31.00" cy="187.30" r="11.0" fill="#1a1a1a"/>
+<text x="31.0" y="192.0" font-size="13.5" fill="#ffffff" font-weight="bold" text-anchor="middle">1</text>
+<text x="50.0" y="192.8" font-size="17" fill="#1a1a1a" font-weight="bold">Two tables, the same keys, slot by slot</text>
+<text x="374.7" y="192.8" font-size="12.5" fill="#555555">colour: how far a key sits from its home slot</text>
+<circle cx="1057.25" cy="189.06" r="4" fill="#1a1a1a"/>
+<text x="1065.7" y="192.8" font-size="11" fill="#555555">counted by the harness</text>
+<text x="20.0" y="221.8" font-size="13" fill="#1a1a1a"><tspan font-weight="bold" font-style="italic" fill="#0072B2">linear probing</tspan></text>
+<text x="532.0" y="221.8" font-size="11" fill="#555555" text-anchor="end">the furthest key is 622 slots from home</text>
+<image x="20.00" y="231.80" width="512.00" height="128.00" preserveAspectRatio="none" href="data:image/png;base64,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" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABAAAAAEACAMAAAAa+/QWAAAAElBMVEXs7Oz95yVeyWIhkYw7UotEAVSsaFVvAAANr0lEQVR42u3dy47cOhIEUHts//8vz6bLCzYSEcmqewcjHO26Sw+Kj6NNIPnj5+Xxn+P49XW8fj//bv//5+t4/X/6+/fXMbXndaTfz/ak36fnnu07j+n8H1/H7e/Teeff5/+n31/3n36fzm/HeTp/6v/pumm+Tde9fj/H77x+Gt9fx3HOh+n3tt/TeKT5PfVTms8/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwOgDTg0+/TC6WBS8+ZBjh14DRg2+vbCZ8m+Dkhz35s+6E9Xs9L4zQdCZJpnKf/TxNvWqifhqKd1wmU7XXTfG/7sQVi+6EYPxwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHgdA6tBzwNqJ1A5ke32aWC1IaaKkhdH+fxug2QZntu/dTrT2uS1UbWClhTS93xTISQs1BWym8dk+P503te8MKLXjGOEBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8DgAthNiGpgWhG3D2wHbFkhoA0/pfm2gJr3Xu0GnthDFuwGkNgiTClG08G3bdRuk2hYg2Z63Be73cGzbvw3YAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHgOAKnBtxM6TcTtAkoLYbug2+tuF9Jt0GlqXwq0bIMvtxM6FeR4d2H+Ko8teG0hk7Z92w1Uth/G7bpp2w0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADguQBsJ8S7BUFSQKQtvLANdmwDKG2/pEIPZ4Dj/P/r2PbDtn1Te1LAJD03BVrO95muawt5tEGZtuDI9vdtQZgU9GqDbC1s2/UHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4HkAbAMdbXBkG6hIQZD0/G0HfBqe6X7bhfw6poU5PWe7QUgbJJrGdwrCpAl/uwHLbTBqG8Rqg1q3G4+cf0/jPH04WrgTsH/HDwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMDjANgGYaYNDNKDtwGWKYCx3XikLWTSBpWmCXO7EcptYYdUSCSBlBb4pwJR6fzthhcpWDUtsP/VxiTT/DkDTO9CuP1wAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHguACnAkIIm0wLYBkTeDfa0C7IdwLTxxO192wWVAjjtAklBoxa6tv3txEsLJC3YtgBIe34qVLINJE3Xnwv/z9eRxnM6PwWIXsd0HQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIDnAdAGfl43SIUKpgnTBj7+HMf0nNRx7Xttj7QAtxN9OrYFH7YFJKZ2txMt9fM0Pu8Gj7bgbINJ07w95//5//N9p9/TdVP7toVepkDRtw81AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgMcB0AY+UqGDNLFTkCWdNxW02C7YaeBvC5i0QZa2YMY2qDQt7G3galsIZhvMShuapIl/uwBSoOpHOFqw2/n2ozymBZwCae19AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwXgDQxpgemgW8bkAIfqQDHdgJtO7R9rzRh2vfdTuwtJAmOVIhj+r0NLk1Bp7Nd2/ZN/XU7727hf7e903PeLSgzBZwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBeANPDbF0gFKqbzp8DI9Hu7EcbtwEwBnE9NlPZ+2w002vdK97vtr/b9EhzbwFf6MCVgUv+f83AqBHIL+rRu2gItqV/PgiQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAngtA2hCi3dAgNbgNPrRBi78v8g8XVpjO3wZNtgtvW6jjtkDItv1tIZC0kKcJf9sfaUOWW3CndiXAElDT/afnbed5XXkEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwOMAmCbMdgLcBmO2BRrSdefCOo/z9zPgcQ7sbRDp93BsYUjXp4It7QYb7URqJ/y2EEsCOf3dXt8WZknzuu2Xdt5u+2tbAOVbgRsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAjwVgWvip4dPfbYdvAyUtGKmQxXbgthuCbDca2S6Ibb++C+i0sNvA0XYBbt+3LRxyG/jZzsvth61t3y3II1wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHgtAWvhtHYF2Qk4T6TZQMQ1cG1iZAkJpQFog24mbCqG0/dIWKpneb/p/u0FIGwTaTuzbD1WC4raQSJpX2w/ZdqOb87opwHb+DQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOC5AGwDBbcQ/FMbbNwWBtkGe9rAyzYgst0I5VNQ3J53+2GYxmP7nmnBtePQfqDa508FY6bxPn+fFnD6oLTBpek6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM8DIBXOuJ24bcPbgW8DMwmGaaOQtsPPo93oY7vA2sBKCvJM/Ta1+9MLpx2nFrSz/X/C8bru9fe50M7ztu38VJDo3QDZbQAKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwPMAmAIIrwvODpqCClNHnQtlGphpIM7zfpbH1P50n7P90/mp3dP7psDH60jPTQvlfM52A4kpqNVuCLJ93jbQtV0Qn9qo5d3gWgvsbTAp3ee8HwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIDnAbB9YBqwbQdMDZsCK1N72gnaDmA7wFM/tRuvfHrifBvgZcGTdgG3hVDaiXhb8GQbVJs2pEn9+akFvd1gZNuedoOQv+MIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4HEApIamBqeOPv9OhShSQGYKukwvnu6bAjTn/6f3SBNxW3hiOxHSeLULpAXvtkDINgC13YBlmn9t+9pCHm2/TMG41C9pndx+ML596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8DoDboMI5cO1GE2nh3774NtDRBoGmCZgKRbQBnG2gqp2AbcAnBak+HXxpg1pbuKbnT+0YN8oo3z8Fqt5emMv7bwNYYxIQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwP89AO2N247dDlhqcBq4FoypYML2fm3HbiGdginv3v8MIrWBmu0GINsNQdrnbedHC/5tgZh2Yd72x69wtOC16xYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADA8wBIG29MN0qFHdr7tAtpGxDaLtDbgFH7Huf5E2xbkNIESfedAlgJjDbAkxbY1I/bjVTe3QBlAmHb7tTvKUC2hawFbQyIAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHgcANtCDFso/gYOyoHZFspo298GOrYT6Ra2dwuAbCfSFqp350G7ocYWzAnE9H5tAZC2kMw24LPtz7QBy7af0/sDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAeA4AbcdsN7Z4N5BxuzFCOr8tZNJe33Z0C1AKxLTvk67bFgbZbhjSHm2AaRvMaTcg+VRhl+2Cbz8A26BRCuJ9+zADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAeBwA54OnDTOmQEY6v+3wNOFuN2S4DfJsgz5toKm9/6tft4VGWoim9t5el87bgrsN9NyOX/s+241a2v7cQpr6dSrwMxXwAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPA8AG6DNG0BhqkD0oYU59FOzLRhyXYAzue+2tPeJ/Xjtt/aidIGlbaFQm43VNne93bepfumgiK3AZ8twLfvN32wt/f/+8EEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8DgAUsGBdmBvgwzT86ZAQ/tiCZzpfq8F3gI1Peds33n+67x0v/O9tudPILQwpIU1AX3249TP53tMwLbj0I7vdmFP47Dtr+36eBfkqX9fBwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIDnAdAGZm6DF9uCCBMI04SdFlJ7tBPh5/JoC2BM/TX127mQz37YBl8+PeHa9zjb9Tsc7Qdk+nsbmPm3gjzb+bcN+qQPIQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIDnATB19DbA0E6cbcem69ICmcC4DSy1Qam2H6eBS4GWqb/O8UyBoTb4cgvd9kMwjfsUBErvdQaW2uvahdXO6xbCdF0L/NSubwVBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwNgP8CCo9RG+3BMmwAAAAASUVORK5CYII="/>
+<path d="M60.0,235.8L20.0,403.8L532.0,403.8L156.0,235.8Z" fill="#ffffff" opacity="0.15"/>
+<path d="M60.0,235.8L20.0,403.8L532.0,403.8L156.0,235.8Z" fill="#000000" opacity="0.05"/>
+<line x1="60.00" y1="235.80" x2="30.48" y2="359.80" stroke="#1a1a1a" stroke-width="1" opacity="0.9"/>
+<line x1="30.48" y1="359.80" x2="20.00" y2="403.80" stroke="#8c8c8c" stroke-width="1"/>
+<line x1="156.00" y1="235.80" x2="433.52" y2="359.80" stroke="#1a1a1a" stroke-width="1" opacity="0.9"/>
+<line x1="433.52" y1="359.80" x2="532.00" y2="403.80" stroke="#8c8c8c" stroke-width="1"/>
+<rect x="59.00" y="230.80" width="98.00" height="6.00" fill="none" stroke="#1a1a1a" stroke-width="1.2"/>
+<rect x="20.00" y="403.80" width="21.33" height="20.00" fill="#fef5a8" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="30.7" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">0</text>
+<rect x="41.33" y="403.80" width="21.33" height="20.00" fill="#a6d3d1" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="52.0" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">5</text>
+<rect x="62.67" y="403.80" width="21.33" height="20.00" fill="#fef5a8" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="73.3" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">0</text>
+<rect x="84.00" y="403.80" width="21.33" height="20.00" fill="#fef5a8" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="94.7" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">0</text>
+<rect x="105.33" y="403.80" width="21.33" height="20.00" fill="#a6d3d1" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="116.0" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">6</text>
+<rect x="126.67" y="403.80" width="21.33" height="20.00" fill="#fef5a8" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="137.3" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">0</text>
+<rect x="148.00" y="403.80" width="21.33" height="20.00" fill="#fef5a8" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="158.7" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">0</text>
+<rect x="169.33" y="403.80" width="21.33" height="20.00" fill="#a6d3d1" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="180.0" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">14</text>
+<rect x="190.67" y="403.80" width="21.33" height="20.00" fill="#b499bb" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="201.3" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">554</text>
+<rect x="212.00" y="403.80" width="21.33" height="20.00" fill="#fef5a8" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="222.7" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">0</text>
+<rect x="233.33" y="403.80" width="21.33" height="20.00" fill="#b499bb" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="244.0" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">333</text>
+<rect x="254.67" y="403.80" width="21.33" height="20.00" fill="#fef5a8" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="265.3" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">0</text>
+<rect x="276.00" y="403.80" width="21.33" height="20.00" fill="#b499bb" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="286.7" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">622</text>
+<rect x="297.33" y="403.80" width="21.33" height="20.00" fill="#b1bad1" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="308.0" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">31</text>
+<rect x="318.67" y="403.80" width="21.33" height="20.00" fill="#fef5a8" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="329.3" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">0</text>
+<rect x="340.00" y="403.80" width="21.33" height="20.00" fill="#bfe9c0" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="350.7" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">1</text>
+<rect x="361.33" y="403.80" width="21.33" height="20.00" fill="#bfe9c0" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="372.0" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">1</text>
+<rect x="382.67" y="403.80" width="21.33" height="20.00" fill="#bfe9c0" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="393.3" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">2</text>
+<rect x="404.00" y="403.80" width="21.33" height="20.00" fill="#fef5a8" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="414.7" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">0</text>
+<rect x="425.33" y="403.80" width="21.33" height="20.00" fill="#bfe9c0" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="436.0" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">1</text>
+<rect x="446.67" y="403.80" width="21.33" height="20.00" fill="#bfe9c0" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="457.3" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">1</text>
+<rect x="468.00" y="403.80" width="21.33" height="20.00" fill="#bfe9c0" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="478.7" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">3</text>
+<rect x="489.33" y="403.80" width="21.33" height="20.00" fill="#a6d3d1" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="500.0" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">4</text>
+<rect x="510.67" y="403.80" width="21.33" height="20.00" fill="#fef5a8" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="521.3" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">0</text>
+<text x="20.0" y="436.8" font-size="10" fill="#555555">slots 10 to 33: how far each key sits from home</text>
+<text x="668.0" y="221.8" font-size="13" fill="#1a1a1a"><tspan font-weight="bold" font-style="italic" fill="#D55E00">Robin Hood</tspan></text>
+<text x="1180.0" y="221.8" font-size="11" fill="#555555" text-anchor="end">the furthest key is 36 slots from home</text>
+<image x="668.00" y="231.80" width="512.00" height="128.00" preserveAspectRatio="none" href="data:image/png;base64,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" xlink:href="data:image/png;base64,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"/>
+<path d="M708.0,235.8L668.0,403.8L1180.0,403.8L804.0,235.8Z" fill="#ffffff" opacity="0.15"/>
+<path d="M708.0,235.8L668.0,403.8L1180.0,403.8L804.0,235.8Z" fill="#000000" opacity="0.05"/>
+<line x1="708.00" y1="235.80" x2="678.48" y2="359.80" stroke="#1a1a1a" stroke-width="1" opacity="0.9"/>
+<line x1="678.48" y1="359.80" x2="668.00" y2="403.80" stroke="#8c8c8c" stroke-width="1"/>
+<line x1="804.00" y1="235.80" x2="1081.52" y2="359.80" stroke="#1a1a1a" stroke-width="1" opacity="0.9"/>
+<line x1="1081.52" y1="359.80" x2="1180.00" y2="403.80" stroke="#8c8c8c" stroke-width="1"/>
+<rect x="707.00" y="230.80" width="98.00" height="6.00" fill="none" stroke="#1a1a1a" stroke-width="1.2"/>
+<rect x="668.00" y="403.80" width="21.33" height="20.00" fill="#a6d3d1" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="678.7" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">8</text>
+<rect x="689.33" y="403.80" width="21.33" height="20.00" fill="#a6d3d1" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="700.0" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">8</text>
+<rect x="710.67" y="403.80" width="21.33" height="20.00" fill="#a6d3d1" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="721.3" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">9</text>
+<rect x="732.00" y="403.80" width="21.33" height="20.00" fill="#a6d3d1" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="742.7" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">10</text>
+<rect x="753.33" y="403.80" width="21.33" height="20.00" fill="#a6d3d1" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="764.0" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">10</text>
+<rect x="774.67" y="403.80" width="21.33" height="20.00" fill="#a6d3d1" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="785.3" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">10</text>
+<rect x="796.00" y="403.80" width="21.33" height="20.00" fill="#a6d3d1" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="806.7" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">11</text>
+<rect x="817.33" y="403.80" width="21.33" height="20.00" fill="#a6d3d1" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="828.0" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">11</text>
+<rect x="838.67" y="403.80" width="21.33" height="20.00" fill="#a6d3d1" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="849.3" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">12</text>
+<rect x="860.00" y="403.80" width="21.33" height="20.00" fill="#a6d3d1" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="870.7" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">12</text>
+<rect x="881.33" y="403.80" width="21.33" height="20.00" fill="#a6d3d1" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="892.0" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">12</text>
+<rect x="902.67" y="403.80" width="21.33" height="20.00" fill="#a6d3d1" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="913.3" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">11</text>
+<rect x="924.00" y="403.80" width="21.33" height="20.00" fill="#a6d3d1" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="934.7" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">10</text>
+<rect x="945.33" y="403.80" width="21.33" height="20.00" fill="#a6d3d1" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="956.0" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">10</text>
+<rect x="966.67" y="403.80" width="21.33" height="20.00" fill="#a6d3d1" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="977.3" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">9</text>
+<rect x="988.00" y="403.80" width="21.33" height="20.00" fill="#a6d3d1" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="998.7" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">9</text>
+<rect x="1009.33" y="403.80" width="21.33" height="20.00" fill="#a6d3d1" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="1020.0" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">7</text>
+<rect x="1030.67" y="403.80" width="21.33" height="20.00" fill="#a6d3d1" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="1041.3" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">6</text>
+<rect x="1052.00" y="403.80" width="21.33" height="20.00" fill="#a6d3d1" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="1062.7" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">4</text>
+<rect x="1073.33" y="403.80" width="21.33" height="20.00" fill="#a6d3d1" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="1084.0" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">5</text>
+<rect x="1094.67" y="403.80" width="21.33" height="20.00" fill="#a6d3d1" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="1105.3" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">5</text>
+<rect x="1116.00" y="403.80" width="21.33" height="20.00" fill="#a6d3d1" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="1126.7" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">6</text>
+<rect x="1137.33" y="403.80" width="21.33" height="20.00" fill="#a6d3d1" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="1148.0" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">4</text>
+<rect x="1158.67" y="403.80" width="21.33" height="20.00" fill="#a6d3d1" stroke="#8c8c8c" stroke-width="0.8"/>
+<text x="1169.3" y="417.2" font-size="9.5" fill="#1a1a1a" text-anchor="middle">5</text>
+<text x="668.0" y="436.8" font-size="10" fill="#555555">slots 10 to 33: how far each key sits from home</text>
+<rect x="554.00" y="237.80" width="10.00" height="10.00" fill="#ececec" stroke="#8c8c8c" stroke-width="0.5"/>
+<text x="569.0" y="246.8" font-size="10.5" fill="#555555">empty</text>
+<rect x="554.00" y="256.80" width="10.00" height="10.00" fill="#fde725"/>
+<text x="569.0" y="265.8" font-size="10.5" fill="#555555">at home</text>
+<rect x="554.00" y="275.80" width="10.00" height="10.00" fill="#5ec962"/>
+<text x="569.0" y="284.8" font-size="10.5" fill="#555555">1–3 slots away</text>
+<rect x="554.00" y="294.80" width="10.00" height="10.00" fill="#21918c"/>
+<text x="569.0" y="303.8" font-size="10.5" fill="#555555">4–15</text>
+<rect x="554.00" y="313.80" width="10.00" height="10.00" fill="#3b528b"/>
+<text x="569.0" y="322.8" font-size="10.5" fill="#555555">16–63</text>
+<rect x="554.00" y="332.80" width="10.00" height="10.00" fill="#440154"/>
+<text x="569.0" y="341.8" font-size="10.5" fill="#555555">64 or more</text>
+<text x="20.0" y="459.8" font-size="11.5" fill="#1a1a1a">Two tables of 4,096 slots, one cell per slot, row after row, with the same 3,686 keys put in in the same order (load 0.90). Which slots are taken does not depend on the rule, only who sits where: the two pictures have the same</text>
+<text x="20.0" y="474.4" font-size="11.5" fill="#1a1a1a">empty slots, and the distances from home add up to the same 22,789 in both, 6.18 per key (checked while drawing). What differs is how that total is shared out. <tspan font-weight="bold" font-style="italic" fill="#0072B2">linear probing</tspan> leaves the keys that came last far out, up to 622</text>
+<text x="20.0" y="489.0" font-size="11.5" fill="#1a1a1a">slots; <tspan font-weight="bold" font-style="italic" fill="#D55E00">Robin Hood</tspan> keeps every key within 36.</text>
+<line x1="20.00" y1="507.60" x2="1180.00" y2="507.60" stroke="#d6d6d6" stroke-width="1"/>
+<circle cx="31.00" cy="527.10" r="11.0" fill="#1a1a1a"/>
+<text x="31.0" y="531.8" font-size="13.5" fill="#ffffff" font-weight="bold" text-anchor="middle">2</text>
+<text x="50.0" y="532.6" font-size="17" fill="#1a1a1a" font-weight="bold">What a lookup costs as the table fills</text>
+<circle cx="959.96" cy="528.86" r="4" fill="#1a1a1a"/>
+<text x="968.4" y="532.6" font-size="11" fill="#555555">counted</text>
+<circle cx="1030.10" cy="528.86" r="3.7" fill="#ffffff" stroke="#555555" stroke-width="1.2" stroke-dasharray="2 1.6"/>
+<text x="1038.5" y="532.6" font-size="11" fill="#555555">pale bands: Knuth's formulas</text>
+<text x="60.0" y="559.6" font-size="11" fill="#555555">probes per lookup</text>
+<rect x="60.00" y="569.60" width="520.00" height="204.00" fill="#f5f5f5"/>
+<path d="M60.0,755.9H580.0M60.0,745.6H580.0M60.0,738.3H580.0M60.0,732.6H580.0M60.0,727.9H580.0M60.0,724.0H580.0M60.0,720.6H580.0M60.0,717.6H580.0M60.0,697.3H580.0M60.0,686.9H580.0M60.0,679.6H580.0M60.0,673.9H580.0M60.0,669.3H580.0M60.0,665.3H580.0M60.0,661.9H580.0M60.0,658.9H580.0M60.0,638.6H580.0M60.0,628.3H580.0M60.0,620.9H580.0M60.0,615.3H580.0M60.0,610.6H580.0M60.0,606.7H580.0M60.0,603.3H580.0M60.0,600.3H580.0M60.0,579.9H580.0M60.0,569.6H580.0" fill="none" stroke="#c9c9c9" stroke-width="0.6" stroke-dasharray="2 2"/>
+<path d="M60.0,773.6H580.0M60.0,714.9H580.0M60.0,656.3H580.0M60.0,597.6H580.0" fill="none" stroke="#ffffff" stroke-width="1.0"/>
+<path d="M88.0,569.6V773.6M199.8,569.6V773.6M311.6,569.6V773.6M423.4,569.6V773.6M535.3,569.6V773.6" fill="none" stroke="#ffffff" stroke-width="0.8"/>
+<text x="54.0" y="777.1" font-size="10" fill="#555555" text-anchor="end">1</text>
+<text x="54.0" y="718.4" font-size="10" fill="#555555" text-anchor="end">10</text>
+<text x="54.0" y="659.8" font-size="10" fill="#555555" text-anchor="end">10<tspan dy="-3.6" font-size="7.2">2</tspan></text>
+<text x="54.0" y="601.1" font-size="10" fill="#555555" text-anchor="end">10<tspan dy="-3.6" font-size="7.2">3</tspan></text>
+<text x="88.0" y="786.6" font-size="10" fill="#555555" text-anchor="middle">0.1</text>
+<text x="199.8" y="786.6" font-size="10" fill="#555555" text-anchor="middle">0.3</text>
+<text x="311.6" y="786.6" font-size="10" fill="#555555" text-anchor="middle">0.5</text>
+<text x="423.4" y="786.6" font-size="10" fill="#555555" text-anchor="middle">0.7</text>
+<text x="535.3" y="786.6" font-size="10" fill="#555555" text-anchor="middle">0.9</text>
+<text x="580.0" y="801.6" font-size="10.5" fill="#555555" text-anchor="end">load α: the share of slots in use</text>
+<path d="M60.0,772.9 L62.8,772.9 L65.6,772.8 L68.4,772.7 L71.2,772.7 L74.0,772.6 L76.8,772.5 L79.6,772.4 L82.4,772.4 L85.2,772.3 L88.0,772.2 L90.8,772.1 L93.5,772.1 L96.3,772.0 L99.1,771.9 L101.9,771.8 L104.7,771.8 L107.5,771.7 L110.3,771.6 L113.1,771.5 L115.9,771.4 L118.7,771.4 L121.5,771.3 L124.3,771.2 L127.1,771.1 L129.9,771.0 L132.7,770.9 L135.5,770.9 L138.3,770.8 L141.1,770.7 L143.9,770.6 L146.7,770.5 L149.5,770.4 L152.3,770.3 L155.1,770.2 L157.8,770.1 L160.6,770.1 L163.4,770.0 L166.2,769.9 L169.0,769.8 L171.8,769.7 L174.6,769.6 L177.4,769.5 L180.2,769.4 L183.0,769.3 L185.8,769.2 L188.6,769.1 L191.4,769.0 L194.2,768.9 L197.0,768.8 L199.8,768.7 L202.6,768.5 L205.4,768.4 L208.2,768.3 L211.0,768.2 L213.8,768.1 L216.6,768.0 L219.4,767.9 L222.2,767.8 L224.9,767.6 L227.7,767.5 L230.5,767.4 L233.3,767.3 L236.1,767.2 L238.9,767.0 L241.7,766.9 L244.5,766.8 L247.3,766.7 L250.1,766.5 L252.9,766.4 L255.7,766.3 L258.5,766.1 L261.3,766.0 L264.1,765.9 L266.9,765.7 L269.7,765.6 L272.5,765.4 L275.3,765.3 L278.1,765.2 L280.9,765.0 L283.7,764.9 L286.5,764.7 L289.2,764.6 L292.0,764.4 L294.8,764.2 L297.6,764.1 L300.4,763.9 L303.2,763.8 L306.0,763.6 L308.8,763.4 L311.6,763.3 L314.4,763.1 L317.2,762.9 L320.0,762.7 L322.8,762.6 L325.6,762.4 L328.4,762.2 L331.2,762.0 L334.0,761.8 L336.8,761.6 L339.6,761.4 L342.4,761.3 L345.2,761.1 L348.0,760.8 L350.8,760.6 L353.5,760.4 L356.3,760.2 L359.1,760.0 L361.9,759.8 L364.7,759.6 L367.5,759.3 L370.3,759.1 L373.1,758.9 L375.9,758.6 L378.7,758.4 L381.5,758.2 L384.3,757.9 L387.1,757.7 L389.9,757.4 L392.7,757.1 L395.5,756.9 L398.3,756.6 L401.1,756.3 L403.9,756.0 L406.7,755.7 L409.5,755.5 L412.3,755.2 L415.1,754.9 L417.8,754.5 L420.6,754.2 L423.4,753.9 L426.2,753.6 L429.0,753.2 L431.8,752.9 L434.6,752.5 L437.4,752.2 L440.2,751.8 L443.0,751.4 L445.8,751.0 L448.6,750.7 L451.4,750.3 L454.2,749.8 L457.0,749.4 L459.8,749.0 L462.6,748.5 L465.4,748.1 L468.2,747.6 L471.0,747.1 L473.8,746.6 L476.6,746.1 L479.4,745.6 L482.2,745.1 L484.9,744.5 L487.7,743.9 L490.5,743.4 L493.3,742.7 L496.1,742.1 L498.9,741.5 L501.7,740.8 L504.5,740.1 L507.3,739.4 L510.1,738.6 L512.9,737.8 L515.7,737.0 L518.5,736.2 L521.3,735.3 L524.1,734.3 L526.9,733.4 L529.7,732.4 L532.5,731.3 L535.3,730.2 L538.1,729.0 L540.9,727.7 L543.7,726.4 L546.5,724.9 L549.2,723.4 L552.0,721.8 L554.8,720.0 L557.6,718.1 L560.4,716.0 L563.2,713.7" fill="none" stroke="#c9c9c9" stroke-width="6" stroke-linejoin="round"/>
+<path d="M60.0,772.3 L62.8,772.1 L65.6,772.0 L68.4,771.8 L71.2,771.7 L74.0,771.5 L76.8,771.4 L79.6,771.2 L82.4,771.1 L85.2,770.9 L88.0,770.8 L90.8,770.6 L93.5,770.5 L96.3,770.3 L99.1,770.1 L101.9,770.0 L104.7,769.8 L107.5,769.6 L110.3,769.5 L113.1,769.3 L115.9,769.1 L118.7,768.9 L121.5,768.8 L124.3,768.6 L127.1,768.4 L129.9,768.2 L132.7,768.0 L135.5,767.9 L138.3,767.7 L141.1,767.5 L143.9,767.3 L146.7,767.1 L149.5,766.9 L152.3,766.7 L155.1,766.5 L157.8,766.3 L160.6,766.1 L163.4,765.9 L166.2,765.7 L169.0,765.4 L171.8,765.2 L174.6,765.0 L177.4,764.8 L180.2,764.6 L183.0,764.3 L185.8,764.1 L188.6,763.9 L191.4,763.6 L194.2,763.4 L197.0,763.2 L199.8,762.9 L202.6,762.7 L205.4,762.4 L208.2,762.2 L211.0,761.9 L213.8,761.7 L216.6,761.4 L219.4,761.1 L222.2,760.9 L224.9,760.6 L227.7,760.3 L230.5,760.1 L233.3,759.8 L236.1,759.5 L238.9,759.2 L241.7,758.9 L244.5,758.6 L247.3,758.3 L250.1,758.0 L252.9,757.7 L255.7,757.4 L258.5,757.1 L261.3,756.8 L264.1,756.4 L266.9,756.1 L269.7,755.8 L272.5,755.4 L275.3,755.1 L278.1,754.8 L280.9,754.4 L283.7,754.1 L286.5,753.7 L289.2,753.3 L292.0,753.0 L294.8,752.6 L297.6,752.2 L300.4,751.8 L303.2,751.5 L306.0,751.1 L308.8,750.7 L311.6,750.3 L314.4,749.8 L317.2,749.4 L320.0,749.0 L322.8,748.6 L325.6,748.1 L328.4,747.7 L331.2,747.3 L334.0,746.8 L336.8,746.3 L339.6,745.9 L342.4,745.4 L345.2,744.9 L348.0,744.4 L350.8,743.9 L353.5,743.4 L356.3,742.9 L359.1,742.4 L361.9,741.9 L364.7,741.3 L367.5,740.8 L370.3,740.2 L373.1,739.7 L375.9,739.1 L378.7,738.5 L381.5,737.9 L384.3,737.3 L387.1,736.7 L389.9,736.1 L392.7,735.5 L395.5,734.8 L398.3,734.2 L401.1,733.5 L403.9,732.8 L406.7,732.1 L409.5,731.4 L412.3,730.7 L415.1,730.0 L417.8,729.2 L420.6,728.5 L423.4,727.7 L426.2,726.9 L429.0,726.1 L431.8,725.3 L434.6,724.5 L437.4,723.6 L440.2,722.7 L443.0,721.9 L445.8,720.9 L448.6,720.0 L451.4,719.1 L454.2,718.1 L457.0,717.1 L459.8,716.1 L462.6,715.1 L465.4,714.0 L468.2,712.9 L471.0,711.8 L473.8,710.6 L476.6,709.5 L479.4,708.2 L482.2,707.0 L484.9,705.7 L487.7,704.4 L490.5,703.1 L493.3,701.7 L496.1,700.2 L498.9,698.8 L501.7,697.2 L504.5,695.7 L507.3,694.0 L510.1,692.3 L512.9,690.6 L515.7,688.8 L518.5,686.9 L521.3,684.9 L524.1,682.8 L526.9,680.7 L529.7,678.5 L532.5,676.1 L535.3,673.7 L538.1,671.1 L540.9,668.3 L543.7,665.5 L546.5,662.4 L549.2,659.1 L552.0,655.6 L554.8,651.9 L557.6,647.8 L560.4,643.4 L563.2,638.5" fill="none" stroke="#c9c9c9" stroke-width="6" stroke-linejoin="round"/>
+<path d="M88.0,732.6 L143.9,727.9 L199.8,712.5 L255.7,706.4 L311.6,694.8 L367.5,682.3 L423.4,662.3 L479.4,648.2 L507.3,632.5 L535.3,621.6 L563.2,586.0" fill="none" stroke="#0072B2" stroke-width="1.0" stroke-linejoin="round"/>
+<circle cx="87.96" cy="732.59" r="1.9" fill="#0072B2"/>
+<circle cx="143.87" cy="727.95" r="1.9" fill="#0072B2"/>
+<circle cx="199.78" cy="712.50" r="1.9" fill="#0072B2"/>
+<circle cx="255.70" cy="706.36" r="1.9" fill="#0072B2"/>
+<circle cx="311.61" cy="694.84" r="1.9" fill="#0072B2"/>
+<circle cx="367.53" cy="682.29" r="1.9" fill="#0072B2"/>
+<circle cx="423.44" cy="662.27" r="1.9" fill="#0072B2"/>
+<circle cx="479.35" cy="648.24" r="1.9" fill="#0072B2"/>
+<circle cx="507.31" cy="632.51" r="1.9" fill="#0072B2"/>
+<circle cx="535.27" cy="621.58" r="1.9" fill="#0072B2"/>
+<circle cx="563.23" cy="586.02" r="1.9" fill="#0072B2"/>
+<path d="M88.0,770.8 L143.9,767.3 L199.8,762.6 L255.7,757.0 L311.6,749.8 L367.5,740.1 L423.4,727.0 L479.4,707.5 L507.3,693.8 L535.3,672.8 L563.2,639.0" fill="none" stroke="#0072B2" stroke-width="2.0" stroke-linejoin="round"/>
+<circle cx="87.96" cy="770.81" r="2.4" fill="#0072B2"/>
+<circle cx="143.87" cy="767.32" r="2.4" fill="#0072B2"/>
+<circle cx="199.78" cy="762.61" r="2.4" fill="#0072B2"/>
+<circle cx="255.70" cy="756.99" r="2.4" fill="#0072B2"/>
+<circle cx="311.61" cy="749.79" r="2.4" fill="#0072B2"/>
+<circle cx="367.53" cy="740.07" r="2.4" fill="#0072B2"/>
+<circle cx="423.44" cy="727.03" r="2.4" fill="#0072B2"/>
+<circle cx="479.35" cy="707.53" r="2.4" fill="#0072B2"/>
+<circle cx="507.31" cy="693.84" r="2.4" fill="#0072B2"/>
+<circle cx="535.27" cy="672.84" r="2.4" fill="#0072B2"/>
+<circle cx="563.23" cy="638.96" r="2.4" fill="#0072B2"/>
+<path d="M88.0,738.3 L143.9,732.6 L199.8,732.6 L255.7,727.9 L311.6,724.0 L367.5,714.9 L423.4,706.4 L479.4,693.7 L507.3,690.6 L535.3,685.3 L563.2,676.0" fill="none" stroke="#D55E00" stroke-width="1.0" stroke-linejoin="round"/>
+<circle cx="87.96" cy="738.28" r="1.9" fill="#D55E00"/>
+<circle cx="143.87" cy="732.59" r="1.9" fill="#D55E00"/>
+<circle cx="199.78" cy="732.59" r="1.9" fill="#D55E00"/>
+<circle cx="255.70" cy="727.95" r="1.9" fill="#D55E00"/>
+<circle cx="311.61" cy="724.02" r="1.9" fill="#D55E00"/>
+<circle cx="367.53" cy="714.93" r="1.9" fill="#D55E00"/>
+<circle cx="423.44" cy="706.36" r="1.9" fill="#D55E00"/>
+<circle cx="479.35" cy="693.71" r="1.9" fill="#D55E00"/>
+<circle cx="507.31" cy="690.58" r="1.9" fill="#D55E00"/>
+<circle cx="535.27" cy="685.29" r="1.9" fill="#D55E00"/>
+<circle cx="563.23" cy="676.05" r="1.9" fill="#D55E00"/>
+<path d="M88.0,771.0 L143.9,768.5 L199.8,765.6 L255.7,762.5 L311.6,759.2 L367.5,755.3 L423.4,750.1 L479.4,741.8 L507.3,736.0 L535.3,727.9 L563.2,712.6" fill="none" stroke="#D55E00" stroke-width="2.0" stroke-linejoin="round"/>
+<circle cx="87.96" cy="771.05" r="2.4" fill="#D55E00"/>
+<circle cx="143.87" cy="768.47" r="2.4" fill="#D55E00"/>
+<circle cx="199.78" cy="765.55" r="2.4" fill="#D55E00"/>
+<circle cx="255.70" cy="762.55" r="2.4" fill="#D55E00"/>
+<circle cx="311.61" cy="759.21" r="2.4" fill="#D55E00"/>
+<circle cx="367.53" cy="755.28" r="2.4" fill="#D55E00"/>
+<circle cx="423.44" cy="750.14" r="2.4" fill="#D55E00"/>
+<circle cx="479.35" cy="741.83" r="2.4" fill="#D55E00"/>
+<circle cx="507.31" cy="736.00" r="2.4" fill="#D55E00"/>
+<circle cx="535.27" cy="727.85" r="2.4" fill="#D55E00"/>
+<circle cx="563.23" cy="712.59" r="2.4" fill="#D55E00"/>
+<path d="M88.0,772.4 L143.9,770.7 L199.8,768.6 L255.7,766.4 L311.6,763.3 L367.5,759.2 L423.4,753.7 L479.4,744.1 L507.3,738.0 L535.3,729.7 L563.2,714.0" fill="none" stroke="#1a1a1a" stroke-width="2.0" stroke-linejoin="round"/>
+<circle cx="87.96" cy="772.44" r="2.4" fill="#1a1a1a"/>
+<circle cx="143.87" cy="770.66" r="2.4" fill="#1a1a1a"/>
+<circle cx="199.78" cy="768.61" r="2.4" fill="#1a1a1a"/>
+<circle cx="255.70" cy="766.40" r="2.4" fill="#1a1a1a"/>
+<circle cx="311.61" cy="763.29" r="2.4" fill="#1a1a1a"/>
+<circle cx="367.53" cy="759.21" r="2.4" fill="#1a1a1a"/>
+<circle cx="423.44" cy="753.73" r="2.4" fill="#1a1a1a"/>
+<circle cx="479.35" cy="744.13" r="2.4" fill="#1a1a1a"/>
+<circle cx="507.31" cy="738.05" r="2.4" fill="#1a1a1a"/>
+<circle cx="535.27" cy="729.75" r="2.4" fill="#1a1a1a"/>
+<circle cx="563.23" cy="713.97" r="2.4" fill="#1a1a1a"/>
+<line x1="567.23" y1="586.02" x2="577.23" y2="586.02" stroke="#0072B2" stroke-width="0.8"/>
+<text x="580.2" y="589.6" font-size="10.5" fill="#555555">the worst hit, <tspan font-weight="bold" font-style="italic" fill="#0072B2">linear probing</tspan></text>
+<line x1="567.23" y1="638.96" x2="577.23" y2="638.96" stroke="#0072B2" stroke-width="0.8"/>
+<text x="580.2" y="642.6" font-size="10.5" fill="#555555">a miss, <tspan font-weight="bold" font-style="italic" fill="#0072B2">linear probing</tspan></text>
+<line x1="567.23" y1="676.05" x2="577.23" y2="676.05" stroke="#D55E00" stroke-width="0.8"/>
+<text x="580.2" y="679.6" font-size="10.5" fill="#555555">the worst hit, <tspan font-weight="bold" font-style="italic" fill="#D55E00">Robin Hood</tspan></text>
+<line x1="567.23" y1="712.59" x2="577.23" y2="706.53" stroke="#D55E00" stroke-width="0.8"/>
+<text x="580.2" y="710.1" font-size="10.5" fill="#555555">a miss, <tspan font-weight="bold" font-style="italic" fill="#D55E00">Robin Hood</tspan></text>
+<line x1="567.23" y1="713.97" x2="577.23" y2="720.03" stroke="#1a1a1a" stroke-width="0.8"/>
+<text x="580.2" y="723.6" font-size="10.5" fill="#555555">a hit, either rule</text>
+<text x="780.0" y="561.6" font-size="11" fill="#555555">Counted in a table of 32,768 slots that is filled step by step; the misses with 4,096</text>
+<text x="780.0" y="575.6" font-size="11" fill="#555555">keys that are not in it. One probe means the key was at home.</text>
+<text x="780.0" y="595.6" font-size="11" fill="#555555">The pale bands are Knuth's formulas for linear probing: ½(1 + 1/(1−α)) for a hit</text>
+<text x="780.0" y="609.6" font-size="11" fill="#555555">and ½(1 + 1/(1−α)<tspan dy="-4.0" font-size="7.9">2</tspan><tspan dy="4.0">) for a miss. At α = 0.90 they give 5.50 and 50.5; the counts</tspan></text>
+<text x="780.0" y="623.6" font-size="11" fill="#555555">are 5.59 and 52.2.</text>
+<text x="780.0" y="643.6" font-size="11" fill="#555555"><tspan font-weight="bold" font-style="italic" fill="#D55E00">Robin Hood</tspan> leaves the average hit where it was: the two rules give the same</text>
+<text x="780.0" y="657.6" font-size="11" fill="#555555">number at every load (checked), so one curve stands for both. It shortens the</text>
+<text x="780.0" y="671.6" font-size="11" fill="#555555">worst hit, 46 probes instead of 1,575 at α = 0.95, and a miss can stop at the first</text>
+<text x="780.0" y="685.6" font-size="11" fill="#555555">key that sits closer to home than the walk is long.</text>
+<line x1="20.00" y1="821.60" x2="1180.00" y2="821.60" stroke="#d6d6d6" stroke-width="1"/>
+<circle cx="31.00" cy="841.10" r="11.0" fill="#1a1a1a"/>
+<text x="31.0" y="845.8" font-size="13.5" fill="#ffffff" font-weight="bold" text-anchor="middle">3</text>
+<text x="50.0" y="846.6" font-size="17" fill="#1a1a1a" font-weight="bold">Against linear probing</text>
+<text x="242.4" y="846.6" font-size="12.5" fill="#555555">above 1×, Robin Hood is the cheaper one</text>
+<circle cx="971.85" cy="842.86" r="4" fill="#1a1a1a"/>
+<text x="980.2" y="846.6" font-size="11" fill="#555555">probes: counted</text>
+<path d="M1077.1,842.9L1081.7,838.3L1086.3,842.9L1081.7,847.5Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.3"/>
+<text x="1090.1" y="846.6" font-size="11" fill="#555555">time: one machine</text>
+<rect x="256.00" y="877.60" width="125.49" height="234.00" fill="#f3f3f3"/>
+<rect x="381.49" y="877.60" width="354.51" height="234.00" fill="#e9f2f9"/>
+<path d="M256.0,877.6V1111.6M286.0,877.6V1111.6M309.2,877.6V1111.6M328.2,877.6V1111.6M344.3,877.6V1111.6M358.2,877.6V1111.6M370.5,877.6V1111.6M453.7,877.6V1111.6M496.0,877.6V1111.6M526.0,877.6V1111.6M549.2,877.6V1111.6M568.2,877.6V1111.6M584.3,877.6V1111.6M598.2,877.6V1111.6M610.5,877.6V1111.6M693.7,877.6V1111.6M736.0,877.6V1111.6" fill="none" stroke="#c4ccd2" stroke-width="0.6" stroke-dasharray="2 2"/>
+<path d="M381.5,877.6V1111.6M621.5,877.6V1111.6" fill="none" stroke="#ffffff" stroke-width="1.0"/>
+<text x="381.5" y="1124.6" font-size="10" fill="#555555" text-anchor="middle">1×</text>
+<text x="621.5" y="1124.6" font-size="10" fill="#555555" text-anchor="middle">10×</text>
+<line x1="381.49" y1="877.60" x2="381.49" y2="1111.60" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="374.5" y="871.6" font-size="10.5" fill="#555555" text-anchor="end"><tspan font-weight="bold" font-style="italic" fill="#0072B2">linear probing</tspan> cheaper</text>
+<text x="388.5" y="871.6" font-size="10.5" fill="#D55E00"><tspan font-weight="bold" font-style="italic">Robin Hood</tspan> cheaper</text>
+<rect x="17.00" y="882.60" width="719.00" height="15.00" fill="#ffffff" opacity="0.82"/>
+<text x="20.0" y="894.1" font-size="11" fill="#555555">at load 0.50</text>
+<text x="247.0" y="910.1" font-size="11" fill="#1a1a1a" text-anchor="end">lookup, the key is there</text>
+<text x="247.0" y="920.6" font-size="9.5" fill="#555555" text-anchor="end">a hit</text>
+<line x1="350.23" y1="910.60" x2="381.49" y2="910.60" stroke="#8c8c8c" stroke-width="1"/>
+<path d="M344.7,910.6L350.2,905.1L355.7,910.6L350.2,916.1Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="381.49" cy="910.60" r="5" fill="#D55E00"/>
+<text x="340.2" y="914.4" font-size="10.5" fill="#1a1a1a" text-anchor="end" stroke="#f3f3f3" stroke-width="3.2" stroke-linejoin="round" paint-order="stroke">0.74×</text>
+<text x="391.5" y="914.4" font-size="10.5" fill="#1a1a1a" stroke="#e9f2f9" stroke-width="3.2" stroke-linejoin="round" paint-order="stroke">1.0×</text>
+<text x="247.0" y="934.1" font-size="11" fill="#1a1a1a" text-anchor="end">lookup, the key is not there</text>
+<text x="247.0" y="944.6" font-size="9.5" fill="#555555" text-anchor="end">a miss</text>
+<line x1="365.69" y1="934.60" x2="420.03" y2="934.60" stroke="#8c8c8c" stroke-width="1"/>
+<path d="M360.2,934.6L365.7,929.1L371.2,934.6L365.7,940.1Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="420.03" cy="934.60" r="5" fill="#D55E00"/>
+<text x="355.7" y="938.4" font-size="10.5" fill="#1a1a1a" text-anchor="end" stroke="#f3f3f3" stroke-width="3.2" stroke-linejoin="round" paint-order="stroke">0.86×</text>
+<text x="430.0" y="938.4" font-size="10.5" fill="#1a1a1a" stroke="#e9f2f9" stroke-width="3.2" stroke-linejoin="round" paint-order="stroke">1.4×</text>
+<text x="247.0" y="958.1" font-size="11" fill="#1a1a1a" text-anchor="end">insert</text>
+<text x="247.0" y="968.6" font-size="9.5" fill="#555555" text-anchor="end">the same probes; 0.4 keys moved on per insert</text>
+<line x1="353.51" y1="958.60" x2="381.49" y2="958.60" stroke="#8c8c8c" stroke-width="1"/>
+<path d="M348.0,958.6L353.5,953.1L359.0,958.6L353.5,964.1Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="381.49" cy="958.60" r="5" fill="#D55E00"/>
+<text x="343.5" y="962.4" font-size="10.5" fill="#1a1a1a" text-anchor="end" stroke="#f3f3f3" stroke-width="3.2" stroke-linejoin="round" paint-order="stroke">0.76×</text>
+<text x="391.5" y="962.4" font-size="10.5" fill="#1a1a1a" stroke="#e9f2f9" stroke-width="3.2" stroke-linejoin="round" paint-order="stroke">1.0×</text>
+<text x="247.0" y="982.1" font-size="11" fill="#1a1a1a" text-anchor="end">the worst hit</text>
+<text x="247.0" y="992.6" font-size="9.5" fill="#555555" text-anchor="end">22 probes against 7</text>
+<circle cx="500.85" cy="982.60" r="5" fill="#D55E00"/>
+<text x="510.8" y="986.4" font-size="10.5" fill="#1a1a1a" stroke="#e9f2f9" stroke-width="3.2" stroke-linejoin="round" paint-order="stroke">3.1×</text>
+<line x1="20.00" y1="994.60" x2="736.00" y2="994.60" stroke="#8c8c8c" stroke-width="0.8"/>
+<rect x="17.00" y="995.60" width="719.00" height="15.00" fill="#ffffff" opacity="0.82"/>
+<text x="20.0" y="1007.1" font-size="11" fill="#555555">at load 0.90</text>
+<text x="247.0" y="1023.1" font-size="11" fill="#1a1a1a" text-anchor="end">lookup, the key is there</text>
+<text x="247.0" y="1033.6" font-size="9.5" fill="#555555" text-anchor="end">a hit</text>
+<line x1="312.66" y1="1023.60" x2="381.49" y2="1023.60" stroke="#8c8c8c" stroke-width="1"/>
+<path d="M307.2,1023.6L312.7,1018.1L318.2,1023.6L312.7,1029.1Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="381.49" cy="1023.60" r="5" fill="#D55E00"/>
+<text x="302.7" y="1027.4" font-size="10.5" fill="#1a1a1a" text-anchor="end" stroke="#f3f3f3" stroke-width="3.2" stroke-linejoin="round" paint-order="stroke">0.52×</text>
+<text x="391.5" y="1027.4" font-size="10.5" fill="#1a1a1a" stroke="#e9f2f9" stroke-width="3.2" stroke-linejoin="round" paint-order="stroke">1.0×</text>
+<text x="247.0" y="1047.1" font-size="11" fill="#1a1a1a" text-anchor="end">lookup, the key is not there</text>
+<text x="247.0" y="1057.6" font-size="9.5" fill="#555555" text-anchor="end">a miss</text>
+<line x1="525.97" y1="1047.60" x2="606.54" y2="1047.60" stroke="#8c8c8c" stroke-width="1"/>
+<path d="M520.5,1047.6L526.0,1042.1L531.5,1047.6L526.0,1053.1Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="606.54" cy="1047.60" r="5" fill="#D55E00"/>
+<text x="516.0" y="1051.4" font-size="10.5" fill="#1a1a1a" text-anchor="end" stroke="#e9f2f9" stroke-width="3.2" stroke-linejoin="round" paint-order="stroke">4.0×</text>
+<text x="616.5" y="1051.4" font-size="10.5" fill="#1a1a1a" stroke="#e9f2f9" stroke-width="3.2" stroke-linejoin="round" paint-order="stroke">8.7×</text>
+<text x="247.0" y="1071.1" font-size="11" fill="#1a1a1a" text-anchor="end">insert</text>
+<text x="247.0" y="1081.6" font-size="9.5" fill="#555555" text-anchor="end">the same probes; 18.1 keys moved on per insert</text>
+<line x1="320.33" y1="1071.60" x2="381.49" y2="1071.60" stroke="#8c8c8c" stroke-width="1"/>
+<path d="M314.8,1071.6L320.3,1066.1L325.8,1071.6L320.3,1077.1Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<circle cx="381.49" cy="1071.60" r="5" fill="#D55E00"/>
+<text x="310.3" y="1075.4" font-size="10.5" fill="#1a1a1a" text-anchor="end" stroke="#f3f3f3" stroke-width="3.2" stroke-linejoin="round" paint-order="stroke">0.56×</text>
+<text x="391.5" y="1075.4" font-size="10.5" fill="#1a1a1a" stroke="#e9f2f9" stroke-width="3.2" stroke-linejoin="round" paint-order="stroke">1.0×</text>
+<text x="247.0" y="1095.1" font-size="11" fill="#1a1a1a" text-anchor="end">the worst hit</text>
+<text x="247.0" y="1105.6" font-size="9.5" fill="#555555" text-anchor="end">390 probes against 32</text>
+<circle cx="642.11" cy="1095.60" r="5" fill="#D55E00"/>
+<text x="652.1" y="1099.4" font-size="10.5" fill="#1a1a1a" stroke="#e9f2f9" stroke-width="3.2" stroke-linejoin="round" paint-order="stroke">12×</text>
+<circle cx="26.00" cy="1141.60" r="5" fill="#D55E00"/>
+<text x="36.0" y="1145.6" font-size="10.5" fill="#555555">probes: counted</text>
+<path d="M129.8,1141.6L135.3,1136.1L140.8,1141.6L135.3,1147.1Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="145.3" y="1145.6" font-size="10.5" fill="#555555">time per operation: measured on one machine</text>
+<text x="770.0" y="887.6" font-size="11" fill="#555555">How many times cheaper <tspan font-weight="bold" font-style="italic" fill="#D55E00">Robin Hood</tspan> is than <tspan font-weight="bold" font-style="italic" fill="#0072B2">linear probing</tspan>: at load 0.90 a miss</text>
+<text x="770.0" y="901.6" font-size="11" fill="#555555">takes 8.7 times fewer probes.</text>
+<text x="770.0" y="921.6" font-size="11" fill="#555555">The clock agrees in direction, not in size: that miss is 4.0 times faster, and a hit,</text>
+<text x="770.0" y="935.6" font-size="11" fill="#555555">although it looks at the same slots, takes 1.9 times as long. This table is plain</text>
+<text x="770.0" y="949.6" font-size="11" fill="#555555">Python, where the one extra comparison per probe costs as much as the probe.</text>
+<text x="770.0" y="969.6" font-size="11" fill="#555555">Times are medians of five runs on one machine, kept in <tspan font-family="'DejaVu Sans Mono', Menlo, Consolas, 'Liberation Mono', 'Courier New', monospace" font-size="10.2">logs/bench.txt</tspan>; the</text>
+<text x="770.0" y="983.6" font-size="11" fill="#555555">counts are exact and are recomputed whenever the figure is built.</text>
+</svg>

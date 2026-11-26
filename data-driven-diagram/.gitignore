@@ -1,0 +1,3 @@
+__pycache__/
+# the dumps that the example harnesses write; the figures built from them are kept
+examples/*/out/
